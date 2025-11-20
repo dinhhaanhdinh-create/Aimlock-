@@ -1,41 +1,252 @@
-# Prerequisites
-*.d
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AnhĐịnhCheat</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: radial-gradient(circle at top, #1e293b, #0f172a 70%); /* nền xanh đen mềm */
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 50px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 2.4rem;
+      margin-bottom: 12px;
+      color: #a78bfa;
+      text-align: center;
+      font-weight: bold;
+    }
+    h2 {
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 30px;
+      text-align: center;
+      color: #9ca3af;
+    }
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 280px;
+      margin: 14px 0;
+      padding: 10px 0;
+    }
+    .label {
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-shadow: 0 0 6px #000;
+    }
+    /* Nút LED */
+    .led {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #1e293b;
+      border: 2px solid #2563eb;
+      cursor: pointer;
+      transition: all .25s ease;
+      box-shadow: inset 0 0 6px #000;
+    }
+    .led.active {
+      background: radial-gradient(circle at 30% 30%, #ffcccc, #ef4444);
+      border-color: #f87171;
+      box-shadow: 0 0 10px #ef4444, 0 0 22px #ef4444cc;
+    }
+    /* Slider AimLock */
+    .slider-wrap {
+      width: 280px;
+      margin-top: 10px;
+      position: relative;
+    }
+    .slider {
+      width: 100%;
+      appearance: none;
+      height: 10px;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #22c55e 0%, #22c55e 0%, #064e3b 0%);
+      outline: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      position: relative;
+      z-index: 2;
+    }
+    .slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid #10b981;
+      cursor: pointer;
+      box-shadow: 0 0 10px #10b981aa;
+      transition: all .2s;
+    }
+    .slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+    /* Khu vực hiển thị */
+    .stage {
+      margin-top: 40px;
+      width: 100%;
+      max-width: 340px;
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fef9c3;
+      font-size: 1rem;
+      text-align: center;
+      padding: 12px;
+      text-shadow: 0 0 6px #000;
+    }
+    /* Upload file */
+    .upload {
+      margin-top: 30px;
+      text-align: center;
+    }
+    .upload label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    .upload input[type="file"] {
+      display: none;
+    }
+    .custom-btn {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      background: #2563eb;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .custom-btn:hover {
+      background: #1e40af;
+    }
+  </style>
+</head>
+<body>
+  <h1>AnhKy</h1>
+  <h2>Menu tinh gọn • chữ đẹp • hiệu ứng êm mắt</h2>
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+  <div class="item">
+    <span class="label">Tâm ảo</span>
+    <div class="led" id="btn-tamao"></div>
+  </div>
 
-# Precompiled Headers
-*.gch
-*.pch
+  <div class="item">
+    <span class="label">Nhẹ tâm</span>
+    <div class="led" id="btn-nhetam"></div>
+  </div>
 
-# Linker files
-*.ilk
+  <div class="item">
+    <span class="label">AimLock</span>
+    <div class="led" id="btn-aimlock"></div>
+  </div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" value="0" id="aim-slider" class="slider">
+  </div>
 
-# Debugger Files
-*.pdb
+  <div class="stage" id="stage">
+    Bấm nút để kích hoạt chức năng
+  </div>
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+  <!-- Upload file -->
+  <div class="upload">
+    <label for="fileInput">Chọn tệp</label>
+    <input type="file" id="fileInput">
+    <button class="custom-btn" onclick="selectFile()">Chọn</button>
+    <p id="fileStatus"></p>
+  </div>
 
-# Fortran module files
-*.mod
-*.smod
+  <!-- Âm thanh tia lửa điện -->
+  <audio id="electric-sound" src="https://www.fesliyanstudios.com/play-mp3/387" preload="auto"></audio>
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+  <script>
+    const stage = document.getElementById("stage");
+    const btnIllusion = document.getElementById("btn-tamao");
+    const btnCalm = document.getElementById("btn-nhetam");
+    const btnAim = document.getElementById("btn-aimlock");
+    const aimSlider = document.getElementById("aim-slider");
+    const electricSound = document.getElementById("electric-sound");
+    const fileInput = document.getElementById("fileInput");
+    const fileStatus = document.getElementById("fileStatus");
 
-# Executables
-*.exe
-*.out
-*.app
+    // Tâm ảo
+    btnIllusion.addEventListener("click", () => {
+      btnIllusion.classList.toggle("active");
+      stage.textContent = btnIllusion.classList.contains("active")
+        ? "Đang bật Tâm ảo 🔴"
+        : "Đã tắt Tâm ảo";
+    });
 
-# debug information files
-*.dwo
+    // Nhẹ tâm
+    btnCalm.addEventListener("click", () => {
+      btnCalm.classList.toggle("active");
+      stage.textContent = btnCalm.classList.contains("active")
+        ? "Đang bật chế độ Nhẹ tâm 🔴"
+        : "Đã tắt Nhẹ tâm";
+    });
+
+    // AimLock
+    btnAim.addEventListener("click", () => {
+      btnAim.classList.toggle("active");
+      checkAimLock();
+    });
+    aimSlider.addEventListener("input", () => {
+      updateSliderGlow();
+      checkAimLock();
+    });
+
+    function checkAimLock(){
+      if(btnAim.classList.contains("active") && aimSlider.value == "100"){
+        stage.textContent = "Bật AimLock Thành Công ✅";
+        electricSound.currentTime = 0;
+        electricSound.play();
+      } else if(btnAim.classList.contains("active")){
+        stage.textContent = "AimLock: " + aimSlider.value + "%";
+      } else {
+        stage.textContent = "AimLock đang tắt";
+      }
+    }
+
+    // Hiệu ứng phát sáng cho slider
+    function updateSliderGlow(){
+      let val = aimSlider.value;
+      let percent = val + "%";
+      let color;
+      if(val < 50){
+        color = "#22c55e"; // xanh lá
+      } else if(val < 100){
+        color = "#f59e0b"; // vàng cam
+      } else {
+        color = "#ef4444"; // đỏ rực
+      }
+      aimSlider.style.background = `linear-gradient(90deg, ${color} ${percent}, #064e3b ${percent})`;
+      aimSlider.style.boxShadow = `0 0 12px ${color}aa`;
+    }
+    updateSliderGlow();
+
+    // Upload file
+    function selectFile(){
+      if(fileInput.files.length > 0){
+        fileStatus.textContent = "Đã chọn tệp thành công ✅";
+      } else {
+        fileStatus.textContent = "Chưa chọn tệp ❌";
+      }
+    }
+  </script>
+</body>
+</html>
